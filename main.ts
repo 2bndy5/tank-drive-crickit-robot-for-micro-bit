@@ -5,20 +5,6 @@ function parseInput (input2: string) {
     forwardbackward = parseFloat(temp[1])
     return "turning=" + temp[0] + "%, forward/backward=" + temp[1] + "%"
 }
-bluetooth.onBluetoothConnected(function () {
-    basic.showString("connected")
-    basic.showIcon(IconNames.Happy)
-})
-bluetooth.onBluetoothDisconnected(function () {
-    basic.showString("disconnected")
-    basic.showIcon(IconNames.No)
-})
-// Parse text input from serial connection over the Bluetooth radio.
-// 
-// Expected input format is "<turning-strength>,<forward-backward>".
-bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () {
-    bluetooth.uartWriteLine(parseInput(bluetooth.uartReadUntil(serial.delimiters(Delimiters.NewLine))))
-})
 // Parse text input from serial connection over the USB wire. This feature is meant for debugging before using Bluetooth
 // 
 // Expected input format is "<turning-strength>,<forward-backward>".
@@ -31,7 +17,6 @@ let temp: string[] = []
 crickit.tank(0, 0)
 serial.redirectToUSB()
 serial.setBaudRate(BaudRate.BaudRate9600)
-bluetooth.startUartService()
 basic.forever(function () {
     // If turning in place. Else going forward or backward while turning (AKA "veering")
     if (forwardbackward == 0) {
@@ -44,9 +29,9 @@ basic.forever(function () {
     } else {
         // If "veering" to the right. Else If "veering" to the left. Else just going forward or backward
         if (turnstrength > 0) {
-            crickit.tank(forwardbackward, Math.round(forwardbackward * (1 - turnstrength / 100)))
+            crickit.tank(forwardbackward, forwardbackward * (1 - turnstrength / 100))
         } else if (turnstrength < 0) {
-            crickit.tank(Math.round(forwardbackward * (1 - turnstrength / 100)), forwardbackward)
+            crickit.tank(forwardbackward * (1 - turnstrength / 100), forwardbackward)
         } else {
             crickit.tank(forwardbackward, forwardbackward)
         }
