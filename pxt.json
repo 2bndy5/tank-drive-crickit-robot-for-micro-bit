@@ -1,0 +1,23 @@
+{
+    "name": "tank-drive crickit robot",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "motobit": "github:sparkfun/pxt-moto-bit#v0.0.4",
+        "bluetooth": "*",
+        "crickit": "github:adafruit/pxt-crickit#v0.0.32"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "main.py"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
