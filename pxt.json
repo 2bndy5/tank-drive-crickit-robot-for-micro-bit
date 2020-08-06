@@ -3,7 +3,6 @@
     "description": "",
     "dependencies": {
         "core": "*",
-        "motobit": "github:sparkfun/pxt-moto-bit#v0.0.4",
         "bluetooth": "*",
         "crickit": "github:adafruit/pxt-crickit#v0.0.32"
     },
